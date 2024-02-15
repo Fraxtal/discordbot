@@ -2,11 +2,11 @@ import discord
 from discord.ext import commands
 from settings import token
 
-client = commands.Bot(command_prefix=os.getenv("command_prefix"), case_insensitive=True)
+client = discord.Client()
 
 @client.event
-async def on_connect():
-    print(f"{bot.user} is ready and online!")
+async def on_ready():
+    print(f"{client.user} is ready and online!")
 
 @client.slash_command(name = "hello", description = "Say hello to the bot")
 async def hello(ctx):
@@ -15,5 +15,9 @@ async def hello(ctx):
 @client.slash_command()
 async def say(ctx, 	message = "What do you want me to say?"):
     await ctx.send(f'{message}')
+
+@client.event
+async def on_message(ctx,message = "F"):
+    await message.channel.send(f"Fk u!")
 
 client.run(token)
